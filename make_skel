@@ -1,0 +1,51 @@
+LD := linker.ld
+BIN := /path/to/cross-compiler
+AS := $(BIN)/i386-elf-as
+CC := $(BIN)/i386-elf-gcc
+CFLAGS = -Wall -Wextra -Iinclude -nostdlib -ffreestanding 
+CFLAGS += -fno-asynchronous-unwind-tables
+RAM = 32M
+
+sources := $(wildcard src/*.c)
+objects := $(addprefix bin/, $(notdir $(sources:.c=.o)))
+sources_as := $(wildcard src/*.s)
+objects_as := $(addprefix bin/, $(notdir $(sources_as:.s=.o)))
+headers := $(wildcard include/*.h)
+
+.PHONY : all clear clear-all test gdb ff
+
+ff : 
+	echo $(sources)
+	echo $(objects)
+	echo $(sources_as)
+	echo $(objects_as)
+	echo $(headers)
+
+all : bin/boot.iso
+
+clear : 
+	rm -f $(objects) $(objects_as)
+
+clear-all : 
+	rm -f $(objects) $(objects_as) bin/boot.bin bin/boot.iso
+	rm -rf iso/
+
+test : bin/boot.iso
+	qemu-system-i386 -cdrom $^ -m $(RAM) &
+
+gdb : bin/boot.iso
+	qemu-system-i386 -cdrom $^ -m $(RAM) -gdb tcp::1234 -S &
+	gdb -s bin/boot.bin
+
+bin/boot.bin : $(objects) $(objects_as)
+	$(CC) $(CFLAGS) -T $(LD) -o $@ $^ -lgcc
+
+bin/boot.iso : bin/boot.bin
+	cd src && ctags *.c *.s ../include/*.h
+	mkdir -p bin/
+	mkdir -p iso/boot/grub/
+	cp .stage2_eltorito iso/boot/grub/stage2_eltorito
+	cp bin/boot.bin iso/boot/boot.bin
+	cp .menu.lst iso/boot/grub/menu.lst
+	genisoimage -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table -o bin/boot.iso iso/
+

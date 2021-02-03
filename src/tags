@@ -1,0 +1,97 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	//
+CHECKSUM	boot.s	/^.set CHECKSUM,	-(MAGIC + FLAGS)	\/* checksum of above, to prove we are multiboot *\/$/;"	d
+END_KERNEL	boot.s	/^END_KERNEL:$/;"	l
+END_KERNEL_ALIGNED	boot.s	/^END_KERNEL_ALIGNED:$/;"	l
+FLAGS	boot.s	/^.set FLAGS,	ALIGN | MEMINFO		\/* Multiboot `flag' field *\/$/;"	d
+KERNEL_BASE	boot.s	/^.set KERNEL_BASE,	0XC0000000		# Higher half kernel base (3 Gb)$/;"	d
+KERNEL_PAGE	boot.s	/^.set KERNEL_PAGE,	KERNEL_BASE >> 22	# Higher half kernel page table index$/;"	d
+Lend	sidt.s	/^.Lend:	hlt$/;"	l
+Lloop	boot.s	/^.Lloop:	$/;"	l
+MAGIC	boot.s	/^.set MAGIC,	0x1BADB002		\/* `magic number' lets the bootloader find the header *\/$/;"	d
+MEMINFO	boot.s	/^.set MEMINFO,	1<<1			\/* provide memory map *\/$/;"	d
+VGA_BUF	../include/vga.h	/^#define VGA_BUF	/;"	d
+VGA_COL_BLACK	../include/vga.h	/^#define	VGA_COL_BLACK	/;"	d
+VGA_COL_BLUE	../include/vga.h	/^#define	VGA_COL_BLUE /;"	d
+VGA_COL_BRIGHT	../include/vga.h	/^#define	VGA_COL_BRIGHT	/;"	d
+VGA_COL_BROWN	../include/vga.h	/^#define	VGA_COL_BROWN	/;"	d
+VGA_COL_CYAN	../include/vga.h	/^#define	VGA_COL_CYAN /;"	d
+VGA_COL_DARK_GRAY	../include/vga.h	/^#define	VGA_COL_DARK_GRAY	/;"	d
+VGA_COL_GREEN	../include/vga.h	/^#define	VGA_COL_GREEN	/;"	d
+VGA_COL_LGRAY	../include/vga.h	/^#define	VGA_COL_LGRAY	/;"	d
+VGA_COL_LIGHT_BLUE	../include/vga.h	/^#define	VGA_COL_LIGHT_BLUE	/;"	d
+VGA_COL_LIGHT_CYAN	../include/vga.h	/^#define	VGA_COL_LIGHT_CYAN	/;"	d
+VGA_COL_LIGHT_GREEN	../include/vga.h	/^#define	VGA_COL_LIGHT_GREEN	/;"	d
+VGA_COL_LIGHT_MAGEN	../include/vga.h	/^#define	VGA_COL_LIGHT_MAGEN	/;"	d
+VGA_COL_LIGHT_RED	../include/vga.h	/^#define	VGA_COL_LIGHT_RED /;"	d
+VGA_COL_MAGEN	../include/vga.h	/^#define	VGA_COL_MAGEN	/;"	d
+VGA_COL_RED	../include/vga.h	/^#define	VGA_COL_RED /;"	d
+VGA_COL_WHIE	../include/vga.h	/^#define	VGA_COL_WHIE	/;"	d
+VGA_COL_YELLOW	../include/vga.h	/^#define	VGA_COL_YELLOW	/;"	d
+VGA_HEI	../include/vga.h	/^#define VGA_HEI	/;"	d
+VGA_IND_CURSORLOC_H	../include/vga.h	/^#define	VGA_IND_CURSORLOC_H	/;"	d
+VGA_IND_CURSORLOC_L	../include/vga.h	/^#define	VGA_IND_CURSORLOC_L	/;"	d
+VGA_REG_MISC_R	../include/vga.h	/^#define	VGA_REG_MISC_R	/;"	d
+VGA_REG_MISC_W	../include/vga.h	/^#define	VGA_REG_MISC_W	/;"	d
+VGA_WID	../include/vga.h	/^#define VGA_WID	/;"	d
+__CTYPE_H__	../include/ctype.h	/^#define	__CTYPE_H__$/;"	d
+__IOPORT_H__	../include/ioport.h	/^#define	__IOPORT_H__$/;"	d
+__STDLIB_H__	../include/stdlib.h	/^#define	__STDLIB_H__$/;"	d
+__STRING_H__	../include/string.h	/^#define	__STRING_H__$/;"	d
+__VGA_H__	../include/vga.h	/^#define	__VGA_H__$/;"	d
+_hstart	boot.s	/^_hstart:$/;"	l
+_num2str	vga.c	/^_num2str(uint32_t num, int base, char *str, int min_len)$/;"	f	typeref:typename:int
+_pg_jump	boot.s	/^_pg_jump:$/;"	l
+_putc	vga.c	/^_putc(char c)$/;"	f	typeref:typename:void
+_puts	vga.c	/^_puts(const char *str)$/;"	f	typeref:typename:void
+_start	boot.s	/^.set	_start, _hstart - KERNEL_BASE$/;"	d
+_vga_update	vga.c	/^_vga_update()$/;"	f	typeref:typename:void
+atoi	stdlib.c	/^atoi(const char *str)$/;"	f	typeref:typename:int
+buf	vga.c	/^uint16_t *buf;$/;"	v	typeref:typename:uint16_t *
+color	vga.c	/^uint8_t color;$/;"	v	typeref:typename:uint8_t
+far_jump	sgdt.s	/^far_jump:$/;"	l
+fmt	sidt.s	/^fmt:$/;"	l
+gdt	sgdt.s	/^gdt:$/;"	l
+gdt_len	sgdt.s	/^gdt_len:$/;"	l
+gdt_tss	sgdt.s	/^gdt_tss:$/;"	l
+height	vga.c	/^uint8_t height, width;$/;"	v	typeref:typename:uint8_t
+idt	sidt.s	/^idt:$/;"	l
+idt_len	sidt.s	/^idt_len:$/;"	l
+ihandler_0	sidt.s	/^ihandler_0:$/;"	l
+inb	../include/ioport.h	/^inb(uint16_t port) {$/;"	f	typeref:typename:uint8_t
+inw	../include/ioport.h	/^inw(uint16_t port) {$/;"	f	typeref:typename:uint16_t
+isalpha	../include/ctype.h	/^#define isalpha(/;"	d
+isdigit	../include/ctype.h	/^#define	isdigit(/;"	d
+kernel_main	main.c	/^kernel_main(int eax, int ebx)$/;"	f	typeref:typename:int
+num_buf	vga.c	/^char num_buf[80];$/;"	v	typeref:typename:char[80]
+outb	../include/ioport.h	/^#define	outb(/;"	d
+outw	../include/ioport.h	/^#define	outw(/;"	d
+page_dir	boot.s	/^page_dir:$/;"	l
+page_tbl0	boot.s	/^page_tbl0:$/;"	l
+set_gdt	sgdt.s	/^set_gdt:$/;"	l
+set_idt	sidt.s	/^set_idt:$/;"	l
+set_idt_entry	sidt.s	/^set_idt_entry:$/;"	l
+sp_dig	vga.c	/^char sp_dig;$/;"	v	typeref:typename:char
+stack_bottom	boot.s	/^stack_bottom:$/;"	l
+stack_top	boot.s	/^stack_top:$/;"	l
+strlen	string.c	/^strlen(const char *str)$/;"	f	typeref:typename:int
+tss	boot.s	/^tss:$/;"	l
+vga_char	vga.c	/^#define	vga_char(/;"	d	file:
+vga_color	vga.c	/^#define	vga_color(/;"	d	file:
+vga_crtc	vga.c	/^uint16_t vga_crtc;$/;"	v	typeref:typename:uint16_t
+vga_init	vga.c	/^vga_init()$/;"	f	typeref:typename:void
+vga_printf	vga.c	/^vga_printf(const char *fmt, ...)$/;"	f	typeref:typename:int
+vga_putc	vga.c	/^vga_putc(char c)$/;"	f	typeref:typename:void
+vga_puts	vga.c	/^vga_puts(const char *str)$/;"	f	typeref:typename:void
+vga_scroll	vga.c	/^vga_scroll()$/;"	f	typeref:typename:void
+width	vga.c	/^uint8_t height, width;$/;"	v	typeref:typename:uint8_t
+x	vga.c	/^uint8_t x, y;$/;"	v	typeref:typename:uint8_t
+x_dig	vga.c	/^char x_dig;$/;"	v	typeref:typename:char
+y	vga.c	/^uint8_t x, y;$/;"	v	typeref:typename:uint8_t

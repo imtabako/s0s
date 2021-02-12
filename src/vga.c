@@ -6,25 +6,34 @@
 #include <stdarg.h>
 #include <stdint.h>
 
+/* In case we want to save a couple of extra lines (i do) */
+#define	Y0	1
+
 uint16_t vga_crtc;
 
 uint16_t *buf;
 uint8_t height, width;
 uint8_t color;
 
-uint8_t x, y;
+int y0;
+int x, y;
 
 char num_buf[80];
 char x_dig;
 char sp_dig;
 
-#define	vga_char(c, col)	( ((col & 0xFF) << 8) | (c & 0xFF) )
-#define	vga_color(fg, bg)	( ((bg & 0x7)<<4) | (fg & 0xF) )
+#define	vga_char(c, col)	( (((col) & 0xFF) << 8) | ((c) & 0xFF) )
+#define	vga_color(fg, bg)	( (((bg) & 0x7) << 4) | ((fg) & 0xF) )
+#define vga_getchar(pos)	( buf[(pos)] & 0xFF )
+#define vga_entry_getchr(entr)	( (entr) & 0xFF )
+#define vga_entry_getcol(entr)	( ((entr) >> 8) & 0xFF )
 
 int	_num2str(uint32_t, int, char *, int);
 void	_putc(char);
 void	_puts(const char *);
 void	_vga_update();
+void	_vga_timer();
+void	_vga_cp(const uint16_t *, int);
 
 void
 vga_init()
@@ -35,7 +44,10 @@ vga_init()
 	width = VGA_WID;
 	height = VGA_HEI;
 	color = vga_color(VGA_COL_LGRAY, VGA_COL_BLACK);
-	x = y = 0;
+
+	y0 = Y0;
+	x = 0;
+	y = y0;
 
 	i = inb(VGA_REG_MISC_R);
 	vga_crtc = i & 1 ? 0x3D4 : 0x3B4;
@@ -43,9 +55,38 @@ vga_init()
 	_vga_update();
 
 	// Clear screen with spaces
-	for (i = 0; i < height; ++i)
+	for (i = y0; i < height; ++i)
 		for (j = 0; j < width; ++j)
-			buf[i*width + j] = vga_char(' ', color);
+			buf[i*width + j] = vga_char(' ', vga_color(VGA_COL_LGRAY, VGA_COL_BLACK));
+
+	for (i = 0; i < y0; ++i)
+		for (j = 0; j < width; ++j)
+			buf[i*width + j] = vga_char(' ', vga_color(VGA_COL_BLACK, VGA_COL_LGRAY));
+}
+
+void
+vga_getpos(int *resx, int *resy)
+{
+	*resx = x;
+	*resy = y;
+}
+
+void
+vga_backsp()
+{
+	x--;
+
+	if (x < 0) {
+		x = width-1;
+		y--;
+	}
+	if (y < y0) {
+		y = y0;
+		x = 0;
+	}
+
+	buf[y*width + x] = vga_char(' ', color);
+	_vga_update();
 }
 
 void
@@ -57,17 +98,83 @@ _vga_update()
 
 	pos = y * VGA_WID + x;
 
-	c = inb(vga_crtc);
-	outb(vga_crtc, 0xF);	// cursor low address
-	outb(vga_crtc+1, (uint8_t) pos);
-	outb(vga_crtc, 0xE);	// cursor high address
-	outb(vga_crtc+1, (uint8_t) (pos >> 8));
-	outb(vga_crtc, c);
+	__asm__ __volatile__ (
+		"mov	$0xF, %%al\n\t"		// outb(CRTC, 0xF)
+		"outb	%%al, %%dx\n\t"
 
-	for (i = 80000000; i > 0; --i);
+		"mov	%%bl, %%al\n\t"		// outb(CRTC+1, pos_l)
+		"inc	%%dx\n\t"
+		"outb	%%al, %%dx\n\t"
+
+		"dec	%%dl\n\t"
+		"mov	$0xE, %%al\n\t"		// outb(CRTC, 0xE)
+		"outb	%%al, %%dx\n\t"
+
+		"inc	%%dl\n\t"		// outb(CRTC+1, pos_h)
+		"mov	%%bh, %%al\n\t"
+		"outb	%%al, %%dx\n\t"
+		:: "b" (pos), "d" (vga_crtc));
+
+#if 0
+	c = inb(vga_crtc);
+	io_wait();
+
+	outb(vga_crtc, 0xF);
+	io_wait();
+
+	outb(vga_crtc+1, (uint8_t) pos);
+	io_wait();
+
+	outb(vga_crtc, 0xE);
+	io_wait();
+
+	outb(vga_crtc+1, (uint8_t) pos >> 8);
+	io_wait();
+
+	outb(vga_crtc, c);
+#endif
+
+#if 0
+	__asm__ __volatile__ (
+		"inb	%%dx, %%al\n\t"		// c = inb(CRTC)
+		"mov	%%al, %%bl\n\t"
+
+		"outb	%%al, $0x80\n\t"	// dummy io wait
+
+		"mov	$0xF, %%al\n\t"		// outb(CRTC, 0xF)
+		"outb	%%al, %%dx\n\t"
+
+		"outb	%%al, $0x80\n\t"	// dummy io wait
+
+		"mov	%%cl, %%al\n\t"		// outb(CRTC+1, pos_l)
+		"inc	%%dx\n\t"
+		"outb	%%al, %%dx\n\t"
+		"dec	%%dx\n\t"
+
+		"outb	%%al, $0x80\n\t"	// dummy io wait
+
+		"mov	$0xE, %%al\n\t"		// outb(CRTC, 0xE)
+		"outb	%%al, %%dx\n\t"
+
+		"outb	%%al, $0x80\n\t"	// dummy io wait
+
+		"mov	%%ch, %%al\n\t"		// outb(CRTC+1, pos_h)
+		"inc	%%dx\n\t"
+		"outb	%%al, %%dx\n\t"
+		"dec	%%dx\n\t"
+
+		"outb	%%al, $0x80\n\t"	// dummy io wait
+
+		"mov	%%bl, %%al\n\t"		// outb(CRTC, c)
+		"outb	%%al, %%dx\n\t"
+
+		:: "c" (pos), "d" (vga_crtc));
+#endif
+	return;
 }
 
 
+/* TODO: code feels too complicated and is too specific */
 int
 _num2str(uint32_t num, int base, char *str, int min_len)
 {
@@ -412,7 +519,7 @@ vga_scroll()
 {
 	int i, j;
 
-	for (i = 0; i < height-1; i++)
+	for (i = y0; i < height-1; i++)
 		for (j = 0; j < width; j++)
 			buf[i*width + j] = buf[(i+1)*width + j];
 
@@ -420,6 +527,87 @@ vga_scroll()
 		buf[i*width + j] = vga_char(' ', color);
 }
 
+/* Sorry for putting data here, the function must be somewhere else */
+char tim_buf[] = " 01234567890";
+uint8_t tim_color = vga_color(VGA_COL_BLACK, VGA_COL_LGRAY);
+int tim_c = 0;
+
+void
+_vga_timer_inc(int x)
+{
+	char c;
+
+	c = vga_getchar(x);
+	if (c < '0' || c > '9') {
+		buf[x] = vga_char('1', tim_color);
+	} else if (c == '9') {
+		buf[x] = vga_char('0', tim_color);
+		x--;
+		_vga_timer_inc(x);
+	} else {
+		buf[x] = vga_char(c+1, tim_color);
+	}
+}
+
+void
+_vga_cp(const uint16_t *str, int len)
+{
+	uint16_t *p;
+	int i;
+
+	p = str;
+	for (i = 0; i < len; i++) {
+		color = vga_entry_getcol(*p);
+		vga_putc(vga_entry_getchr(*p));
+		p++;
+	}
+	color = vga_color(VGA_COL_MAGEN, VGA_COL_BLACK);
+}
+
+void
+_vga_chcl(int sw)
+{
+	int i, j;
+	uint8_t clr;
+
+	switch (sw) {
+	case 1:
+		clr = vga_color(VGA_COL_LIGHT_RED, VGA_COL_GREEN);
+		break;
+	case 2:
+		clr = vga_color(VGA_COL_BLUE, VGA_COL_BROWN);
+		break;
+	case 3:
+		clr = vga_color(VGA_COL_LIGHT_CYAN, VGA_COL_BLACK);
+		break;
+	case 4:
+		clr = vga_color(VGA_COL_YELLOW, VGA_COL_BLUE);
+		break;
+	case 5:
+		clr = vga_color(VGA_COL_WHITE, VGA_COL_RED);
+		break;
+	default:
+		return;
+	}
+
+	for (i = y0; i < height; i++)
+		for (j = 0; j < width; j++)
+			buf[i*VGA_WID+j] = buf[i*VGA_WID+j] & 0xFF | (clr << 8);
+}
+
+/*
+	char *ptr;
+	char c;
+
+	buf[tim_x] = vga_char(tim_buf[tim_c+1], tim_color);
+
+	tim_c++;
+	if (tim_c == 11) {
+		tim_c = 1;
+		tim_x--;
+		buf[tim_x] = vga_char('0', tim_color);
+	}
+*/
 	
 #if 0
 	uint8_t c;

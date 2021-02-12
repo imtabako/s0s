@@ -1,5 +1,5 @@
 LD := linker.ld
-BIN := /path/to/cross-compiler
+BIN := /home/jopa/opt/cross/bin
 AS := $(BIN)/i386-elf-as
 CC := $(BIN)/i386-elf-gcc
 CFLAGS = -Wall -Wextra -Iinclude -nostdlib -ffreestanding 
@@ -28,6 +28,7 @@ clear :
 
 clear-all : 
 	rm -f $(objects) $(objects_as) bin/boot.bin bin/boot.iso
+	rm -rf bin/
 	rm -rf iso/
 
 test : bin/boot.iso

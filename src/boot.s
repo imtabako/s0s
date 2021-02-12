@@ -103,6 +103,10 @@ _pg_jump:
 	#  Note: nothing changes if stack is not 16b-aligned; TODO: discover what it means
 	call	set_gdt
 
+	call	com_init
+
+	call	vga_init
+
 	call	set_idt
 
 	push	%ebx
@@ -116,8 +120,25 @@ _pg_jump:
 	 * 2) wait for the next interrupt with `hlt'
 	 * 3) jump to `hlt' instruction if it ever wakes up
 	 */
+.Lendless:
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	jmp	.Lendless
+
 	cli
 1:	hlt
+
+.global	__break
+__break:
+
 	jmp 1b
 
 /* set size of _start symbol. Useful for debugging or call tracing */

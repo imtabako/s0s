@@ -8,15 +8,62 @@
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	0.0.0	//
 CHECKSUM	boot.s	/^.set CHECKSUM,	-(MAGIC + FLAGS)	\/* checksum of above, to prove we are multiboot *\/$/;"	d
+COM_PORT	com.c	/^#define	COM_PORT	/;"	d	file:
 END_KERNEL	boot.s	/^END_KERNEL:$/;"	l
 END_KERNEL_ALIGNED	boot.s	/^END_KERNEL_ALIGNED:$/;"	l
 FLAGS	boot.s	/^.set FLAGS,	ALIGN | MEMINFO		\/* Multiboot `flag' field *\/$/;"	d
+ICW1	../include/pic.h	/^#define	ICW1	/;"	d
+ICW1_ADI	../include/pic.h	/^#define	ICW1_ADI	/;"	d
+ICW1_D4	../include/pic.h	/^#define	ICW1_D4	/;"	d
+ICW1_IC4	../include/pic.h	/^#define	ICW1_IC4	/;"	d
+ICW1_LTIM	../include/pic.h	/^#define	ICW1_LTIM	/;"	d
+ICW1_SNGL	../include/pic.h	/^#define	ICW1_SNGL	/;"	d
+ICW2	../include/pic.h	/^#define	ICW2	/;"	d
+ICW3_MASTER	../include/pic.h	/^#define	ICW3_MASTER	/;"	d
+ICW3_SLAVE	../include/pic.h	/^#define	ICW3_SLAVE	/;"	d
+ICW4	../include/pic.h	/^#define	ICW4	/;"	d
+ICW4_AEOI	../include/pic.h	/^#define	ICW4_AEOI	/;"	d
+ICW4_BUF	../include/pic.h	/^#define	ICW4_BUF	/;"	d
+ICW4_BUF_MASTER	../include/pic.h	/^#define	ICW4_BUF_MASTER	/;"	d
+ICW4_BUF_SLAVE	../include/pic.h	/^#define	ICW4_BUF_SLAVE	/;"	d
+ICW4_MS	../include/pic.h	/^#define	ICW4_MS	/;"	d
+ICW4_PM	../include/pic.h	/^#define	ICW4_PM	/;"	d
+ICW4_SFNM	../include/pic.h	/^#define	ICW4_SFNM	/;"	d
+KBD_SIZ	pic.c	/^#define	KBD_SIZ	/;"	d	file:
 KERNEL_BASE	boot.s	/^.set KERNEL_BASE,	0XC0000000		# Higher half kernel base (3 Gb)$/;"	d
 KERNEL_PAGE	boot.s	/^.set KERNEL_PAGE,	KERNEL_BASE >> 22	# Higher half kernel page table index$/;"	d
-Lend	sidt.s	/^.Lend:	hlt$/;"	l
+Lend0	sidt.s	/^.Lend0:	hlt$/;"	l
+Lend1	sidt.s	/^.Lend1:	hlt$/;"	l
+Lend10	sidt.s	/^.Lend10:	hlt$/;"	l
+Lend11	sidt.s	/^.Lend11:	hlt$/;"	l
+Lend12	sidt.s	/^.Lend12:	hlt$/;"	l
+Lend13	sidt.s	/^.Lend13:	hlt$/;"	l
+Lend14	sidt.s	/^.Lend14:	hlt$/;"	l
+Lend15	sidt.s	/^.Lend15:	hlt$/;"	l
+Lend16	sidt.s	/^.Lend16:	hlt$/;"	l
+Lend2	sidt.s	/^.Lend2:	hlt$/;"	l
+Lend3	sidt.s	/^.Lend3:	hlt$/;"	l
+Lend4	sidt.s	/^.Lend4:	hlt$/;"	l
+Lend5	sidt.s	/^.Lend5:	hlt$/;"	l
+Lend6	sidt.s	/^.Lend6:	hlt$/;"	l
+Lend7	sidt.s	/^.Lend7:	hlt$/;"	l
+Lend8	sidt.s	/^.Lend8:	hlt$/;"	l
+Lend9	sidt.s	/^.Lend9:	hlt$/;"	l
+Lendless	boot.s	/^.Lendless:$/;"	l
 Lloop	boot.s	/^.Lloop:	$/;"	l
+Lsidt0	sidt.s	/^.Lsidt0:$/;"	l
 MAGIC	boot.s	/^.set MAGIC,	0x1BADB002		\/* `magic number' lets the bootloader find the header *\/$/;"	d
 MEMINFO	boot.s	/^.set MEMINFO,	1<<1			\/* provide memory map *\/$/;"	d
+NELEMS	pic.c	/^#define	NELEMS(/;"	d	file:
+PIC1	../include/pic.h	/^#define PIC1	/;"	d
+PIC1_CMD	../include/pic.h	/^#define PIC1_CMD	/;"	d
+PIC1_DATA	../include/pic.h	/^#define PIC1_DATA	/;"	d
+PIC2	../include/pic.h	/^#define PIC2	/;"	d
+PIC2_CMD	../include/pic.h	/^#define PIC2_CMD	/;"	d
+PIC2_DATA	../include/pic.h	/^#define PIC2_DATA	/;"	d
+PIC_OFFSET	../include/pic.h	/^#define PIC_OFFSET	/;"	d
+TDIV	timer.s	/^.set	TDIV, 11931$/;"	d
+THZ	timer.s	/^.set	THZ, 100$/;"	d
 VGA_BUF	../include/vga.h	/^#define VGA_BUF	/;"	d
 VGA_COL_BLACK	../include/vga.h	/^#define	VGA_COL_BLACK	/;"	d
 VGA_COL_BLUE	../include/vga.h	/^#define	VGA_COL_BLUE /;"	d
@@ -33,7 +80,7 @@ VGA_COL_LIGHT_MAGEN	../include/vga.h	/^#define	VGA_COL_LIGHT_MAGEN	/;"	d
 VGA_COL_LIGHT_RED	../include/vga.h	/^#define	VGA_COL_LIGHT_RED /;"	d
 VGA_COL_MAGEN	../include/vga.h	/^#define	VGA_COL_MAGEN	/;"	d
 VGA_COL_RED	../include/vga.h	/^#define	VGA_COL_RED /;"	d
-VGA_COL_WHIE	../include/vga.h	/^#define	VGA_COL_WHIE	/;"	d
+VGA_COL_WHITE	../include/vga.h	/^#define	VGA_COL_WHITE	/;"	d
 VGA_COL_YELLOW	../include/vga.h	/^#define	VGA_COL_YELLOW	/;"	d
 VGA_HEI	../include/vga.h	/^#define VGA_HEI	/;"	d
 VGA_IND_CURSORLOC_H	../include/vga.h	/^#define	VGA_IND_CURSORLOC_H	/;"	d
@@ -41,23 +88,36 @@ VGA_IND_CURSORLOC_L	../include/vga.h	/^#define	VGA_IND_CURSORLOC_L	/;"	d
 VGA_REG_MISC_R	../include/vga.h	/^#define	VGA_REG_MISC_R	/;"	d
 VGA_REG_MISC_W	../include/vga.h	/^#define	VGA_REG_MISC_W	/;"	d
 VGA_WID	../include/vga.h	/^#define VGA_WID	/;"	d
+Y0	vga.c	/^#define	Y0	/;"	d	file:
 __CTYPE_H__	../include/ctype.h	/^#define	__CTYPE_H__$/;"	d
 __IOPORT_H__	../include/ioport.h	/^#define	__IOPORT_H__$/;"	d
+__PIC_H__	../include/pic.h	/^#define	__PIC_H__$/;"	d
 __STDLIB_H__	../include/stdlib.h	/^#define	__STDLIB_H__$/;"	d
 __STRING_H__	../include/string.h	/^#define	__STRING_H__$/;"	d
 __VGA_H__	../include/vga.h	/^#define	__VGA_H__$/;"	d
+__break	boot.s	/^__break:$/;"	l
 _hstart	boot.s	/^_hstart:$/;"	l
+_kbd_shit	pic.c	/^_kbd_shit()$/;"	f	typeref:typename:void
 _num2str	vga.c	/^_num2str(uint32_t num, int base, char *str, int min_len)$/;"	f	typeref:typename:int
 _pg_jump	boot.s	/^_pg_jump:$/;"	l
 _putc	vga.c	/^_putc(char c)$/;"	f	typeref:typename:void
 _puts	vga.c	/^_puts(const char *str)$/;"	f	typeref:typename:void
+_shit	pic.c	/^uint16_t _shit[] = {$/;"	v	typeref:typename:uint16_t[]
+_sos	pic.c	/^char _sos[] = \\$/;"	v	typeref:typename:char[]
 _start	boot.s	/^.set	_start, _hstart - KERNEL_BASE$/;"	d
+_vga_chcl	vga.c	/^_vga_chcl(int sw)$/;"	f	typeref:typename:void
+_vga_cp	vga.c	/^_vga_cp(const uint16_t *str, int len)$/;"	f	typeref:typename:void
+_vga_timer_inc	vga.c	/^_vga_timer_inc(int x)$/;"	f	typeref:typename:void
 _vga_update	vga.c	/^_vga_update()$/;"	f	typeref:typename:void
 atoi	stdlib.c	/^atoi(const char *str)$/;"	f	typeref:typename:int
 buf	vga.c	/^uint16_t *buf;$/;"	v	typeref:typename:uint16_t *
 color	vga.c	/^uint8_t color;$/;"	v	typeref:typename:uint8_t
+com_init	com.c	/^com_init()$/;"	f	typeref:typename:int
+com_write	com.c	/^com_write(char a) {$/;"	f	typeref:typename:void
 far_jump	sgdt.s	/^far_jump:$/;"	l
 fmt	sidt.s	/^fmt:$/;"	l
+fmt_tim	timer.s	/^fmt_tim:$/;"	l
+fmtq	sidt.s	/^fmtq:$/;"	l
 gdt	sgdt.s	/^gdt:$/;"	l
 gdt_len	sgdt.s	/^gdt_len:$/;"	l
 gdt_tss	sgdt.s	/^gdt_tss:$/;"	l
@@ -65,33 +125,72 @@ height	vga.c	/^uint8_t height, width;$/;"	v	typeref:typename:uint8_t
 idt	sidt.s	/^idt:$/;"	l
 idt_len	sidt.s	/^idt_len:$/;"	l
 ihandler_0	sidt.s	/^ihandler_0:$/;"	l
+ihandler_1	sidt.s	/^ihandler_1:$/;"	l
+ihandler_10	sidt.s	/^ihandler_10:$/;"	l
+ihandler_11	sidt.s	/^ihandler_11:$/;"	l
+ihandler_12	sidt.s	/^ihandler_12:$/;"	l
+ihandler_13	sidt.s	/^ihandler_13:$/;"	l
+ihandler_14	sidt.s	/^ihandler_14:$/;"	l
+ihandler_15	sidt.s	/^ihandler_15:$/;"	l
+ihandler_16	sidt.s	/^ihandler_16:$/;"	l
+ihandler_2	sidt.s	/^ihandler_2:$/;"	l
+ihandler_3	sidt.s	/^ihandler_3:$/;"	l
+ihandler_4	sidt.s	/^ihandler_4:$/;"	l
+ihandler_5	sidt.s	/^ihandler_5:$/;"	l
+ihandler_6	sidt.s	/^ihandler_6:$/;"	l
+ihandler_7	sidt.s	/^ihandler_7:$/;"	l
+ihandler_8	sidt.s	/^ihandler_8:$/;"	l
+ihandler_9	sidt.s	/^ihandler_9:$/;"	l
 inb	../include/ioport.h	/^inb(uint16_t port) {$/;"	f	typeref:typename:uint8_t
 inw	../include/ioport.h	/^inw(uint16_t port) {$/;"	f	typeref:typename:uint16_t
+io_wait	../include/ioport.h	/^io_wait() {$/;"	f	typeref:typename:void
+irq0_echo	timer.s	/^irq0_echo:$/;"	l
+irq0_end	timer.s	/^irq0_end:$/;"	l
+irq0_handler	timer.s	/^irq0_handler:$/;"	l
+irq1	sidt.s	/^irq1:$/;"	l
+is_transmit_empty	com.c	/^is_transmit_empty() {$/;"	f	typeref:typename:int
 isalpha	../include/ctype.h	/^#define isalpha(/;"	d
 isdigit	../include/ctype.h	/^#define	isdigit(/;"	d
+kbd_flags	pic.c	/^unsigned char kbd_flags = 0;$/;"	v	typeref:typename:unsigned char
+kbd_handler	pic.c	/^kbd_handler(short key)$/;"	f	typeref:typename:void
+kbd_scan	pic.c	/^unsigned char kbd_scan[] = {$/;"	v	typeref:typename:unsigned char[]
 kernel_main	main.c	/^kernel_main(int eax, int ebx)$/;"	f	typeref:typename:int
 num_buf	vga.c	/^char num_buf[80];$/;"	v	typeref:typename:char[80]
-outb	../include/ioport.h	/^#define	outb(/;"	d
-outw	../include/ioport.h	/^#define	outw(/;"	d
+outb	../include/ioport.h	/^outb(uint16_t port, uint8_t data)$/;"	f	typeref:typename:void
+outw	../include/ioport.h	/^outw(uint16_t port, uint8_t data)$/;"	f	typeref:typename:void
 page_dir	boot.s	/^page_dir:$/;"	l
 page_tbl0	boot.s	/^page_tbl0:$/;"	l
+pic_init	pic.c	/^pic_init()$/;"	f	typeref:typename:void
+pic_mask	pic.c	/^pic_mask(unsigned int irq)$/;"	f	typeref:typename:void
+pic_remap	pic.c	/^pic_remap(int offset1, int offset2)$/;"	f	typeref:typename:void
+pic_unmask	pic.c	/^pic_unmask(unsigned int irq)$/;"	f	typeref:typename:void
 set_gdt	sgdt.s	/^set_gdt:$/;"	l
 set_idt	sidt.s	/^set_idt:$/;"	l
 set_idt_entry	sidt.s	/^set_idt_entry:$/;"	l
+set_timer	timer.s	/^set_timer:$/;"	l
 sp_dig	vga.c	/^char sp_dig;$/;"	v	typeref:typename:char
 stack_bottom	boot.s	/^stack_bottom:$/;"	l
 stack_top	boot.s	/^stack_top:$/;"	l
 strlen	string.c	/^strlen(const char *str)$/;"	f	typeref:typename:int
+tim_buf	vga.c	/^char tim_buf[] = " 01234567890";$/;"	v	typeref:typename:char[]
+tim_c	vga.c	/^int tim_c = 0;$/;"	v	typeref:typename:int
+time_cnt	timer.s	/^time_cnt:$/;"	l
 tss	boot.s	/^tss:$/;"	l
+vga_backsp	vga.c	/^vga_backsp()$/;"	f	typeref:typename:void
 vga_char	vga.c	/^#define	vga_char(/;"	d	file:
 vga_color	vga.c	/^#define	vga_color(/;"	d	file:
 vga_crtc	vga.c	/^uint16_t vga_crtc;$/;"	v	typeref:typename:uint16_t
+vga_entry_getchr	vga.c	/^#define vga_entry_getchr(/;"	d	file:
+vga_entry_getcol	vga.c	/^#define vga_entry_getcol(/;"	d	file:
+vga_getchar	vga.c	/^#define vga_getchar(/;"	d	file:
+vga_getpos	vga.c	/^vga_getpos(int *resx, int *resy)$/;"	f	typeref:typename:void
 vga_init	vga.c	/^vga_init()$/;"	f	typeref:typename:void
 vga_printf	vga.c	/^vga_printf(const char *fmt, ...)$/;"	f	typeref:typename:int
 vga_putc	vga.c	/^vga_putc(char c)$/;"	f	typeref:typename:void
 vga_puts	vga.c	/^vga_puts(const char *str)$/;"	f	typeref:typename:void
 vga_scroll	vga.c	/^vga_scroll()$/;"	f	typeref:typename:void
 width	vga.c	/^uint8_t height, width;$/;"	v	typeref:typename:uint8_t
-x	vga.c	/^uint8_t x, y;$/;"	v	typeref:typename:uint8_t
+x	vga.c	/^int x, y;$/;"	v	typeref:typename:int
 x_dig	vga.c	/^char x_dig;$/;"	v	typeref:typename:char
-y	vga.c	/^uint8_t x, y;$/;"	v	typeref:typename:uint8_t
+y	vga.c	/^int x, y;$/;"	v	typeref:typename:int
+y0	vga.c	/^int y0;$/;"	v	typeref:typename:int

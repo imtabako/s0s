@@ -26,7 +26,7 @@
 #define	VGA_COL_LIGHT_RED 	( VGA_COL_RED	| VGA_COL_BRIGHT )
 #define	VGA_COL_LIGHT_MAGEN	( VGA_COL_MAGEN	| VGA_COL_BRIGHT )
 #define	VGA_COL_YELLOW		( VGA_COL_BROWN	| VGA_COL_BRIGHT )
-#define	VGA_COL_WHIE		( VGA_COL_LGRAY	| VGA_COL_BRIGHT )
+#define	VGA_COL_WHITE		( VGA_COL_LGRAY	| VGA_COL_BRIGHT )
 
 #define VGA_BUF	(0xB8000 | 0xC0000000)
 #define VGA_WID	80
@@ -35,11 +35,15 @@
 
 void	vga_init();
 
+void	vga_getpos(int *resx, int *resy);
+
 void	vga_putc(char c);
 
 void	vga_puts(const char *str);
 
 int	vga_printf(const char *fmt, ...);
+
+void	vga_backsp();
 
 void	vga_scroll();
 
